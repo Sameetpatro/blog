@@ -1,4 +1,4 @@
-# CRUD Blog Web Application, with PostgreSQL, Express, Node.js, and EJS Templating 📝
+<!-- # CRUD Blog Web Application, with PostgreSQL, Express, Node.js, and EJS Templating 📝
 
 <div align="center">
 <img height="350px" src="https://github.com/shanibider/CRUD-PostgreSQL-Blog-Web-Application/assets/72359805/4037be89-97ce-4733-bcb4-aea030a99404">
@@ -67,4 +67,7 @@ Copyright © Shani Bider, 2024
 
 ## License📄
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. -->
+
+
+to be done
