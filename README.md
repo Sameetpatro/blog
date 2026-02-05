@@ -1,73 +1,63 @@
-<!-- # CRUD Blog Web Application, with PostgreSQL, Express, Node.js, and EJS Templating 📝
+# My Custom Blog - CRUD Blog Web Application
 
-<div align="center">
-<img height="350px" src="https://github.com/shanibider/CRUD-PostgreSQL-Blog-Web-Application/assets/72359805/4037be89-97ce-4733-bcb4-aea030a99404">
-</div>
+A full-stack blogging platform built with PostgreSQL, Express, Node.js, and EJS templating.
 
-### **Live Demo:** [Explore the live website.🖥](https://nodejs-blog-web-application.onrender.com/)
+## Features
 
-Welcome to the CRUD Blog Application! This project utilizes Node.js, Express.js, PostgreSQL, and EJS templating to create a dynamic and responsive CRUD (Create, Read, Update, Delete) application. Users can perform CRUD operations on posts, providing a seamless blogging experience.
+- **Article Creation**: Users can create new blog articles with subject, title, and content fields
+- **Article Viewing**: Homepage displays all published articles with automatic timestamps
+- **Article Editing**: Full edit functionality allows users to modify existing articles
+- **Article Deletion**: Remove articles with confirmation dialog for safety
+- **PostgreSQL Database**: Robust data persistence with relational database
+- **Responsive Design**: Mobile-friendly interface that works across all devices
+- **Email Contact Form**: Integrated contact system using Nodemailer
+- **Published Date Tracking**: Automatic timestamp for when articles are published
+- **Health Check Endpoint**: `/health` route for monitoring application status
+- **RESTful API Structure**: Clean route organization following REST principles
 
-## Key Features 🚀
-- [x] **Post Creation**: Users can easily create new posts using a simple and intuitive interface.
-- [x] **Post Viewing**: The home page displays all posts, allowing users to view their content at a glance.
-- [x] **Post Update/Delete**: Users have the flexibility to edit or delete their posts as needed, ensuring content accuracy and relevance.
-- [x] **Responsive Styling**: The application is styled to be responsive across various devices, providing a consistent and enjoyable user experience.
+## Recent Additions
 
-## Technologies Used 💻
-[![My Skills](https://skillicons.dev/icons?i=js,nodejs,express,html,css,bootstrap)](https://skillicons.dev)
+- ✅ Renamed blog routes from `/posts` to `/articles` for better semantic clarity
+- ✅ Added `published_at` timestamp field to track article publication dates
+- ✅ Implemented `/health` endpoint for application health monitoring
+- ✅ Updated branding to "My Custom Blog" throughout the application
 
-- [x] **Node.js**: A JavaScript runtime environment that executes server-side code, enabling the development of scalable and high-performance applications.
-- [x] **Express.js**: A minimalist web application framework for Node.js, providing a robust set of features for building web servers and APIs.
-- [x] **PostgreSQL**: A powerful, open-source relational database system used for storing and managing data.
-- [x] **EJS (Embedded JavaScript)**: A simple templating language that generates HTML markup with plain JavaScript, facilitating the creation of dynamic web pages.
+## Technologies Used
 
-## Installation Guide 🛠️
+- **Node.js**: JavaScript runtime for server-side execution
+- **Express.js**: Web application framework
+- **PostgreSQL**: Relational database for data storage
+- **EJS**: Templating engine for dynamic HTML generation
+- **Nodemailer**: Email functionality for contact form
+- **Bootstrap**: Responsive CSS framework
+- **Lodash**: Utility library for data manipulation
 
-1. Clone the repository.
-3. Install dependencies: `npm install`
-5. Start the server: `node app.js`
-6. Access the application in your web browser at `http://localhost:3000`
+## Installation Guide
 
-## Usage 📝
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Create a `.env` file with your PostgreSQL credentials:
+```
+   DB_USER=your_username
+   DB_HOST=localhost
+   DB_DATABASE=blog_db
+   DB_PASSWORD=your_password
+   DB_PORT=5432
+```
+4. Run the SQL schema from `queries.sql` to set up the database
+5. Start the server: `npm start`
+6. Access the application at `http://localhost:3000`
 
-1. **Create a Post**: Click on the "Create Post" button to compose a new blog post, filling in the title and content fields.
-2. **View Posts**: Browse the home page to see a list of all available posts, including titles and excerpts.
-3. **Update/Delete Posts**: Click on a post to view its full content. From there, you can edit or delete the post using the provided options.
-4. **Responsive Design**: Experience seamless navigation and readability across devices, thanks to the responsive styling of the application.
+## API Endpoints
 
-
-<br>
-
-
-### Website Preview:
-
-![1](https://github.com/shanibider/EJS-Blog-Website/assets/72359805/b855389c-a370-45d0-b7b0-d36415afd0bf)
-![2](https://github.com/shanibider/EJS-Blog-Website/assets/72359805/01da7809-9f69-496a-99f7-11f53e4b9ef3)
-![3](https://github.com/shanibider/EJS-Blog-Website/assets/72359805/b8bd8c7d-46b1-4e46-8333-109eb03dc8af)
-![7](https://github.com/shanibider/EJS-Blog-Website/assets/72359805/1305a87f-d0a3-4d86-9a42-83c7dc161ca1)
-![4](https://github.com/shanibider/EJS-Blog-Website/assets/72359805/545ed88b-0f9a-42e1-b1a0-15143cea69c4)
-![6](https://github.com/shanibider/EJS-Blog-Website/assets/72359805/4b429ccb-e906-47a9-923a-28d2fbce3903)
-
-<br>
-
-
-## 🔗 Connect with me 👩‍💻😊
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shani-bider/)
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://shanibider.github.io/Portfolio/)
-[![gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:shanibider@gmail.com)
-
-
-<footer>
-<p style="float:left; width: 20%;">
-Copyright © Shani Bider, 2024
-</p>
-</footer>
-
-
-## License📄
-
-This project is licensed under the MIT License. -->
-
-
-to be done
+- `GET /` - Homepage with all articles
+- `GET /articles/:articleName` - View single article
+- `GET /compose` - Create new article form
+- `POST /compose` - Submit new article
+- `GET /edit/:articleName` - Edit article form
+- `POST /edit/:articleName` - Update article
+- `GET /delete/:articleName` - Delete article
+- `GET /about` - About page
+- `GET /contact` - Contact page
+- `POST /contact` - Submit contact form
+- `GET /health` - Health check endpoint

@@ -14,17 +14,17 @@
           <% posts.forEach (function(post) { %>
             
           <h2 class="mb-1 mt-2 post-title" >
-            <a href="/posts/<%= post.title %>"><%= post.title %> </a>
-           </h2>
+            <a href="/articles/<%= post.title %>"><%= post.title %> </a>
+          </h2>
 
           <span class="font-sm text-color letter-spacing text-uppercase post-meta font-extra"><%= post.subject %></span>
 
-
           <div class="post-content mt-4 pb-5" >
             <p> <%=post.content.substring(0, 250) + " ... "%>
-              <a class="read-more" href="/posts/<%= post.title %>">Read More</a>
+              <a class="read-more" href="/articles/<%= post.title %>">Read More</a>
             </p>
             <% }); %>
+          </div>
 
 
           </div>
