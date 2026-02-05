@@ -52,15 +52,15 @@ let posts = [
 
 // defining the necessary routes:
 
-// the client ask for a reaource- the homepage.
+// the client ask for a resource- the homepage.
 app.get("/", async function(req, res){
   try {
-  const result = await db.query("SELECT * FROM posts ORDER BY id ASC");
-  posts = result.rows;
+    const result = await db.query("SELECT id, subject, title, content, published_at FROM posts ORDER BY id ASC");
+    posts = result.rows;
 
-  res.render("home", {
-    startingContent: homeStartingContent, 
-    posts: posts, // Pass the posts array to home.ejs
+    res.render("home", {
+      startingContent: homeStartingContent, 
+      posts: posts, // Pass the posts array to home.ejs
     });
   } catch (err) {
     console.log(err);
@@ -85,7 +85,7 @@ const upload = multer({ dest: 'uploads/' }); // Set the destination folder where
 
 
 
-// GET and POST compose (put togheter):
+// GET and POST compose (put together):
 app.get("/compose", async function(req, res){
   res.render("compose");
 });
@@ -105,20 +105,27 @@ app.post("/compose", async function(req, res){
 
 
 // When a user clicks on an article, display the article's subject, title, and content
-app.get("/articles/:articleName", function(req, res){
+app.get("/articles/:articleName", async function(req, res){
   const requestedTitle = _.lowerCase(req.params.articleName);
 
-  posts.forEach (function (post){
-    const storedTitle = _.lowerCase(post.title);
-    if (storedTitle === requestedTitle) {
+  try {
+    const result = await db.query("SELECT * FROM posts WHERE LOWER(title) = $1", [requestedTitle]);
+    
+    if (result.rows.length > 0) {
+      const post = result.rows[0];
       res.render("post", {
         subject: post.subject, 
         title: post.title, 
         content: post.content,
         published_at: post.published_at
       });
+    } else {
+      res.status(404).send("Article not found");
     }
-  });
+  } catch (err) {
+    console.error("Error fetching article:", err);
+    res.status(500).send("Error fetching article");
+  }
 });
 
 
@@ -154,6 +161,7 @@ app.post("/edit/:articleName", async function (req, res) {
   }
 });
 
+
 /* 
 // Edit without database
 app.get("/edit/:postName", function (req, res) {
@@ -175,7 +183,7 @@ app.post("/edit/:postName", function (req, res) {
     // If current post title matches the requested title, it updates the corresponding post in the posts array with the data received from the form (req.body). Then redirects the user to the URL for viewing the updated post.
     if (storedTitle === requestedTitle) {
       posts [index] = { subject: req.body.postSubject, title: req.body.postTitle, content: req.body.postBody };
-      res.redirect("/posts/" + _.lowerCase(req.body.postTitle));    
+      res.redirect("/articles/" + _.lowerCase(req.body.postTitle));    
     }
   });
 });*/
@@ -185,12 +193,11 @@ app.post("/edit/:postName", function (req, res) {
 
 
 
-// Delete post route - handle post deletion
-// Delete article route
+// Delete article route - handle article deletion
 app.get("/delete/:articleName", async function (req, res) {
   const requestedTitle = _.lowerCase(req.params.articleName);
   try {
-    await db.query("DELETE FROM posts WHERE title = $1", [requestedTitle]);
+    await db.query("DELETE FROM posts WHERE LOWER(title) = $1", [requestedTitle]);
     res.redirect("/");
   } catch (err) {
     console.log(err);
@@ -222,9 +229,9 @@ app.post("/contact", function (req, res) {
   });
 
   // Function to format camel case words with spaces
-function formatInquiry(inquiry) {
-  return inquiry.replace(/([a-z])([A-Z])/g, '$1 $2');
-}
+  function formatInquiry(inquiry) {
+    return inquiry.replace(/([a-z])([A-Z])/g, '$1 $2');
+  }
 
   // Email options
   const mailOptions = {
@@ -243,11 +250,9 @@ function formatInquiry(inquiry) {
     } else {
       console.log("Email sent: " + info.response);
     
-     // Show SweetAlert for success
-     const successNotification = 'Email sent successfully!';
-     res.render("contact", { contactContent: contactContent, notification: successNotification });
-     res.redirect("/"); // Redirect to home page
-
+      // Show SweetAlert for success
+      const successNotification = 'Email sent successfully!';
+      res.render("contact", { contactTitle: contactTitle, notification: successNotification });
     }
   });
 });
@@ -267,9 +272,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   res.json({ message: 'Hello from Express.js!' });
-}
-);
+});
+
 app.use('/.netlify/functions/app', router);  // path must route to lambda
 
 export const handler = serverless(app);
-
